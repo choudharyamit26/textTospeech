@@ -1,7 +1,14 @@
+asgiref==3.2.10
 boto3==1.15.12
+boto3-stubs==1.15.12.1
 botocore==1.18.12
+Django==3.1.2
 jmespath==0.10.0
+pdfminer==20191125
+pycryptodome==3.9.8
 python-dateutil==2.8.1
+pytz==2020.1
 s3transfer==0.3.3
 six==1.15.0
+sqlparse==0.3.1
 urllib3==1.25.10
