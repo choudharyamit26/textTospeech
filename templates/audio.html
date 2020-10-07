@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of text converted to speech</title>
+</head>
+<body>
+{% for object in object_list %}
+<a href="{{object.audio}}">Audio {{forloop.counter}}</a><br>
+<hr>
+{% endfor %}
+<h1><a href="{% url 'src:create-view' %}">Upload More Files</a></h1>
+</body>
+</html>
