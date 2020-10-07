@@ -80,7 +80,6 @@ class CreateAudio(View):
             Audio.objects.create(
                 audio=audio_file
             )
-            i+=1
             # return HttpResponse("Created audio file")
             return redirect('src:list-view')
         except Exception as e:
