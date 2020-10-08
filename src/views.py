@@ -30,7 +30,7 @@ class CreateAudio(View):
     form_class = Importdataform
 
     def get(self, request, *args, **kwargs):
-        return render(self.request,'upload.html')
+        return render(self.request, 'upload.html')
 
     def post(self, request, *args, **kwargs):
         in_file = self.request.FILES['document']
@@ -49,7 +49,7 @@ class CreateAudio(View):
             interpreter.process_page(page)
         text = output_string.getvalue()
         a = a.append(text)
-        arabic_txt = ' '.join(text)
+        arabic_txt = ''.join(text)
         print(arabic_txt)
         in_file.close()
         device.close()
@@ -72,10 +72,16 @@ class CreateAudio(View):
             response = polly.synthesize_speech(Text=arabic_txt,
                                                OutputFormat="mp3",
                                                VoiceId="Zeina")
-            file = open('speech.mp3', 'wb')
+            x = self.model.objects.all().last()
+            y = ''
+            y = x.id
+            print('--------------------------------',y)
+            y += 1
+            y = str(y)
+            file = open('speech{}.mp3'.format(y), 'wb')
             file.write(response['AudioStream'].read())
             file.close()
-            audio_file = '/speech.mp3'
+            audio_file = '/speech{}.mp3'.format(y)
             # audio_file = '../../speech.mp3'
             Audio.objects.create(
                 audio=audio_file
