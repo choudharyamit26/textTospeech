@@ -28,6 +28,9 @@ from PIL import Image
 
 
 # Create your views here.
+def modify_text(text):
+    text = text.replace(".", ".<break time='1s'/> ")
+    return text
 
 
 class CreateAudio(View):
@@ -54,6 +57,8 @@ class CreateAudio(View):
             img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
             cv2.medianBlur(img, 3)
             scanned_text = pytesseract.image_to_string(img, lang='ara')
+            scanned_text = modify_text(scanned_text)
+            print('---------After adding break------',scanned_text)
             arabic_text.append(text)
             # print('>>>>>>>>>>>', arabic_text)
             # text = "<speak><prosody rate='slow'>{}</prosody></speak>".format(text)
@@ -97,7 +102,7 @@ class CreateAudio(View):
             # l = ''.join(text),
             # text = "<speak><prosody rate='x-slow'>{}</prosody><speak>".format(text)
             # text = "<speak><prosody rate='x-slow'>HI {}</prosody><speak>".format(l)
-            string_length = len(scanned_text)-1
+            string_length = len(scanned_text) - 1
             # print('-----------------------------------',string_length)
             text = '''
             <speak><prosody rate='slow'>{}</prosody></speak>
