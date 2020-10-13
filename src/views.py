@@ -46,7 +46,6 @@ class CreateAudio(View):
         fs = FileSystemStorage()
         filename = fs.save(in_file.name, in_file)
         text = ''
-        arabic_text = []
         page = convert_from_path(filename, 400)
         for i, image in enumerate(page):
             print(image)
@@ -59,20 +58,7 @@ class CreateAudio(View):
             scanned_text = pytesseract.image_to_string(img, lang='ara')
             scanned_text = modify_text(scanned_text)
             print('---------After adding break------',scanned_text)
-            arabic_text.append(text)
-            # print('>>>>>>>>>>>', arabic_text)
-            # text = "<speak><prosody rate='slow'>{}</prosody></speak>".format(text)
-            # text = "<speak>{}</speak>".format(text)
-            # l = 'Alexa'
             print('--------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', text)
-            # l = 'أليكسا'
-            # l = """
-            #     هذه إحدى قصص ما قبل النوم الكلاسيكية للأطفال .تبدأ القصة في مزرعة » حيث تجلس بطة على مجموعة من البيض لجعلها
-            #     تفقس .يفقس البيض واحدا تلو الآخر » وسرعان ما يكون هناك ستة فراخ بط صفراء الريش » تزقزق بحماس .تستغرق آخر بيضة وقتًا
-            #     أطول حتى تفقس » ومن ثم تظهر بطة غريبة الشكل ذات ريش رمادي .الجميع يجد البطة الرمادية قبيحة » بما في ذلك والدتها .تهرب
-            #     البطة المكتئبة وتعيش بمفردها في مستنقع حى يأتي الشتاء .عند رؤية البطة تتضور جوعًا في الشتاء » يشفق مزارع على البطة القبيحة
-            #     .ويمنحها الطعام والمأوى في المنزل .ومع ذلك » فإن البطة تخاف من صخب أطفال المزارع وتهرب إلى كهف بجانب بحيرة متجمدة
-            # """
             # l = """
             #     هذه إحدى قصص ما قبل النوم الكلاسيكية للأطفال .تبدأ القصة في مزرعة » حيث تجلس بطة على مجموعة من البيض لجعلهاهذه إحدى قصص ما قبل النوم الكلاسيكية للأطفال .تبدأ القصة في مزرعة » حيث تجلس بطة على مجموعة من البيض لجعلها
             #     تفقس .يفقس البيض واحدا تلو الآخر » وسرعان ما يكون هناك ستة فراخ بط صفراء الريش » تزقزق بحماس .تستغرق آخر بيضة وقتًا
@@ -108,55 +94,18 @@ class CreateAudio(View):
             <speak><prosody rate='slow'>{}</prosody></speak>
             '''.format(scanned_text[:string_length])
             print(text)
-        # print(in_file)
-        # arabic_txt = ''
-        # output_string = StringIO()
-        # with open(uploaded_file, 'rb') as in_file:
-        # a = []
-        # parser = PDFParser(in_file)
-        # doc = PDFDocument(parser)
-        # codec = 'utf-8'
-        # rsrcmgr = PDFResourceManager()
-        # device = TextConverter(rsrcmgr, output_string, laparams=LAParams())
-        # interpreter = PDFPageInterpreter(rsrcmgr, device)
-        # for page in PDFPage.create_pages(doc):
-        #     interpreter.process_page(page)
-        # text = output_string.getvalue()
-        # a = a.append(text)
-        # arabic_txt = ''.join(text)
-        # print(arabic_txt)
-        # in_file.close()
-        # device.close()
-        # output_string.close()
-        # text = text.encode('utf-8')
-        # output = open('output.txt', 'wb')
-        # print(text.decode('utf-8'))
-        # text = text.decode('utf-8')
-        # output.write(text)
-        # output.close()
-        # return text
-        # print(text)
-
-        session = Session(aws_access_key_id='AKIAU4GHOSL2LRH2BYHQ',
-                          aws_secret_access_key='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',
+###########OLD ACCESS KEY#######
+        # session = Session(aws_access_key_id='AKIAU4GHOSL2LRH2BYHQ',
+        #                   aws_secret_access_key='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',
+        #                   region_name='us-east-2')
+        ###########New ACCESS KEY#######
+        session = Session(aws_access_key_id='AKIAU4GHOSL2IRP4DI5R',
+                          aws_secret_access_key='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',
                           region_name='us-east-2')
         # polly = boto3.client(service_name="polly", region_name='us-east-2', aws_access_key_id='AKIAU4GHOSL2LRH2BYHQ',
         #                      aws_secret_access_key='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', )
         polly = session.client("polly")
         try:
-            # Request speech synthesis
-            # {
-            #     "Engine": "string",
-            #     "LanguageCode": "string",
-            #     "LexiconNames": ["string"],
-            #     "OutputFormat": "string",
-            #     "SampleRate": "string",
-            #     "SpeechMarkTypes": ["string"],
-            #     "Text": "string",
-            #     "TextType": "string",
-            #     "VoiceId": "string"
-            # }
-
             response = polly.synthesize_speech(
                 OutputFormat="mp3",
                 LanguageCode='arb',
@@ -165,8 +114,8 @@ class CreateAudio(View):
                 Text=str(text)
             )
             x = self.model.objects.all().last()
-            y = ''
             y = x.id
+            # y = 1
             print('--------------------------------', y)
             y += 1
             y = str(y)
@@ -179,6 +128,8 @@ class CreateAudio(View):
                 audio=audio_file
             )
             # return HttpResponse("Created audio file")
+            # os.remove(audio_file)
+            # os.remove(filename)
             return redirect('src:list-view')
         except Exception as e:
             print(e)
