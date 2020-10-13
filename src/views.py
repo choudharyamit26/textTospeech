@@ -29,7 +29,7 @@ from PIL import Image
 
 # Create your views here.
 def modify_text(text):
-    text = text.replace(".", "<break time='1s'/> ")
+    text = text.replace('.', '<break time="1s"/> ')
     return text
 
 
@@ -57,7 +57,7 @@ class CreateAudio(View):
             cv2.medianBlur(img, 3)
             scanned_text = pytesseract.image_to_string(img, lang='ara')
             scanned_text = modify_text(scanned_text)
-            # scanned_text = scanned_text.replace("'", "<break time='2s'/>")
+            scanned_text = scanned_text.replace("'", " <break time='2s'/> ")
             print('---------After adding break------', scanned_text)
             print('--------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', text)
             # l = """
