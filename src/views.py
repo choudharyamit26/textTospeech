@@ -29,7 +29,7 @@ from PIL import Image
 
 # Create your views here.
 def modify_text(text):
-    text = text.replace(".", ".<break time='1s'/> ")
+    text = text.replace(".", "<break time='1s'/> ")
     return text
 
 
@@ -57,7 +57,8 @@ class CreateAudio(View):
             cv2.medianBlur(img, 3)
             scanned_text = pytesseract.image_to_string(img, lang='ara')
             scanned_text = modify_text(scanned_text)
-            print('---------After adding break------',scanned_text)
+            scanned_text = scanned_text.replace("'", "<break time='2s'/>")
+            print('---------After adding break------', scanned_text)
             print('--------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', text)
             # l = """
             #     هذه إحدى قصص ما قبل النوم الكلاسيكية للأطفال .تبدأ القصة في مزرعة » حيث تجلس بطة على مجموعة من البيض لجعلهاهذه إحدى قصص ما قبل النوم الكلاسيكية للأطفال .تبدأ القصة في مزرعة » حيث تجلس بطة على مجموعة من البيض لجعلها
@@ -94,10 +95,7 @@ class CreateAudio(View):
             <speak><prosody rate='slow'>{}</prosody></speak>
             '''.format(scanned_text[:string_length])
             print(text)
-###########OLD ACCESS KEY#######
-        # session = Session(aws_access_key_id='AKIAU4GHOSL2LRH2BYHQ',
-        #                   aws_secret_access_key='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',
-        #                   region_name='us-east-2')
+
         ###########New ACCESS KEY#######
         session = Session(aws_access_key_id='AKIAU4GHOSL2IRP4DI5R',
                           aws_secret_access_key='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',
