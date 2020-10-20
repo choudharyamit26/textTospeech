@@ -7,7 +7,7 @@
 <body>
 {% for object in object_list %}
 <!--<h4>Id {{object.id}}</h4>-->
-<a href="{{object.audio}}">Audio {{forloop.counter}}</a><br>
+<a href="{% url 'src:download-file' object.id %}">FILE {{forloop.counter}}</a><br>
 <hr>
 {% endfor %}
 <h1><a href="{% url 'src:create-view' %}">Upload More Files</a></h1>

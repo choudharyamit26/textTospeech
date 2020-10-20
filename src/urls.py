@@ -1,12 +1,13 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import CreateAudio, ListAudio
+from .views import CreateAudio, ListAudio,DownloadFile
 
 app_name = 'src'
 
 urlpatterns = [
     path('', CreateAudio.as_view(), name='create-view'),
+    path('download-file/<int:pk>/', DownloadFile.as_view(), name='download-file'),
     path('list', ListAudio.as_view(), name='list-view')
 ]
 
