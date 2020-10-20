@@ -3,7 +3,7 @@ from django.views.generic import View, CreateView, ListView
 from django.core.files.storage import FileSystemStorage
 from .forms import Importdataform
 from .models import Audio
-import docx
+# import docx
 from django.core.files import File
 from django.http import HttpResponseRedirect, HttpResponse
 from boto3 import Session
