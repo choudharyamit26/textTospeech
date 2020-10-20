@@ -81,7 +81,7 @@ class CreateAudio(View):
             x = self.model.objects.all().last()
             y = x.id
             # print('--------------------------------', y)
-            # y += 1
+            # y = 1
             # y = str(y)
             # file = open('speech{}.mp3'.format(y), 'wb')
             # file.write(response['AudioStream'].read())
