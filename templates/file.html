@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TXT FILES</title>
+</head>
+<body>
+{% for object in object_list %}
+<!--<h4>Id {{object.id}}</h4>-->
+<a href="#">FILE {{forloop.counter}}</a><br>
+<hr>
+{% endfor %}
+<h1><a href="{% url 'src:create-view' %}">Upload More Files</a></h1>
+</body>
+</html>
